@@ -7,15 +7,15 @@
  * 4. エラーハンドリング
  */
 
-import { postRepository } from "../repositories/postRepository";
-import { userRepository } from "../repositories/userRepository";
-import { PaginatedResponse, PaginationQuery } from "../types/api";
+import { postRepository } from "../repositories/postRepository.js";
+import { userRepository } from "../repositories/userRepository.js";
+import { PaginatedResponse, PaginationQuery } from "../types/api.js";
 import {
   CreatePostDto,
   Post,
   PostResponseDto,
   UpdatePostDto,
-} from "../types/post";
+} from "../types/post.js";
 
 class PostService {
   /**
@@ -116,7 +116,7 @@ class PostService {
 
     const updated = await postRepository.update(id, data);
     if (!updated) {
-      throw new Error("Failed to uodate post");
+      throw new Error("Failed to update post");
     }
 
     return this.toResponseDto(updated);
@@ -152,9 +152,9 @@ class PostService {
     let posts;
 
     if (keyword) {
-      posts = await postRepository.serchByKeyword(keyword);
+      posts = await postRepository.searchByKeyword(keyword);
     } else if (tag) {
-      posts = await postRepository.searchBytag(tag);
+      posts = await postRepository.searchByTag(tag);
     } else {
       const allPosts = await postRepository.findByStatus("published");
       posts = allPosts;
@@ -166,7 +166,7 @@ class PostService {
   /**
    * ユーザーの記事一覧取得
    */
-  async getPostsByUser(authorId: string): Promise<PostResponseDto[]> {
+  async getPostsByAuthor(authorId: string): Promise<PostResponseDto[]> {
     const posts = await postRepository.findByAuthorId(authorId);
 
     // 公開記事のみ
@@ -186,10 +186,10 @@ class PostService {
         throw new Error("Title is required");
       }
       if (data.title.length < 3) {
-        throw new Error("Titile must be at least 3 characters");
+        throw new Error("Title must be at least 3 characters");
       }
       if (data.title.length > 200) {
-        throw new Error("Titke must be less than 200 characters");
+        throw new Error("Title must be less than 200 characters");
       }
     }
 
@@ -235,7 +235,7 @@ class PostService {
       author: {
         id: author?.id || "",
         name: author?.name || "Unknown User",
-        avator: author?.avatar,
+        avatar: author?.avatar,
       },
       tags: post.tags,
       createdAt: post.createdAt.toISOString(),

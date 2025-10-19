@@ -42,7 +42,7 @@ export type PostResponseDto = {
   author: {
     id: string;
     name: string;
-    avator?: string;
+    avatar?: string;
   };
   tags: string[];
   createdAt: string;

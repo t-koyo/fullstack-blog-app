@@ -11,7 +11,7 @@ export type User = {
 
 export type RegisterDto = {
   email: string;
-  passoword: string;
+  password: string;
   name: string;
 };
 

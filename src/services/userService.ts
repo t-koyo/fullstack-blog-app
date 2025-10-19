@@ -1,5 +1,5 @@
-import { userRepository } from "../repositories/userRepository";
-import { RegisterDto, User, UserResponseDto } from "../types/user";
+import { userRepository } from "../repositories/userRepository.js";
+import { RegisterDto, User, UserResponseDto } from "../types/user.js";
 import * as crypto from "crypto";
 
 class UserService {
@@ -16,7 +16,7 @@ class UserService {
 
     // パスワードハッシュ化（仮実装）
     // 後でbcryptに置き換え
-    const hashedPassword = this.hashPassword(data.passoword);
+    const hashedPassword = this.hashPassword(data.password);
     const user = await userRepository.create({
       ...data,
       hashedPassword,
@@ -61,15 +61,15 @@ class UserService {
     }
 
     // パスワード
-    if (data.passoword.length < 8) {
+    if (data.password.length < 8) {
       throw new Error("Password must be at least 8 characters");
     }
-    if (data.passoword.length > 100) {
+    if (data.password.length > 100) {
       throw new Error("Password must be less than 100 characters");
     }
 
     // 名前
-    if (data.name.trim()) {
+    if (!data.name.trim()) {
       throw new Error("Name is required");
     }
     if (data.name.length < 2) {

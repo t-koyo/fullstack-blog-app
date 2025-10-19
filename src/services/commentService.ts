@@ -1,12 +1,12 @@
 import { throwDeprecation } from "process";
-import { commentReposititory } from "../repositories/commentRepository";
-import { postRepository } from "../repositories/postRepository";
+import { commentReposititory } from "../repositories/commentRepository.js";
+import { postRepository } from "../repositories/postRepository.js";
 import {
   Comment,
   CommentResponseDto,
   CreateCommentDto,
-} from "../types/comment";
-import { userRepository } from "../repositories/userRepository";
+} from "../types/comment.js";
+import { userRepository } from "../repositories/userRepository.js";
 
 class CommentService {
   // 記事のコメント一覧取得

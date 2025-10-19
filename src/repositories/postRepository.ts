@@ -32,7 +32,7 @@ class PostRepository {
     return this.posts.filter((post) => post.status === status);
   }
 
-  // ペ字ネーション付き取得
+  // ページネーション付き取得
   async findWthPagination(
     page: number,
     limit: number,
@@ -107,15 +107,15 @@ class PostRepository {
 
   // タグ検索
 
-  async searchBytag(tag: string): Promise<Post[]> {
+  async searchByTag(tag: string): Promise<Post[]> {
     return this.posts.filter(
       (post) => post.tags.includes(tag) && post.status === "published"
     );
   }
 
   // キーワードで検索（タイトルと本文）
-  async serchByKeyword(keyword: string): Promise<Post[]> {
-    const lowerKeyword = keyword.toLocaleLowerCase();
+  async searchByKeyword(keyword: string): Promise<Post[]> {
+    const lowerKeyword = keyword.toLowerCase();
     return this.posts.filter(
       (post) =>
         (post.title.toLowerCase().includes(lowerKeyword) ||
